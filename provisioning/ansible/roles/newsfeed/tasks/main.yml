@@ -1,0 +1,16 @@
+- name: testing that we are in an stable build
+  shell: nohup `APP_PORT=8081 java -jar newsfeed.jar` >/dev/null &
+  args:
+    chdir: ~/infra-problem/build
+
+- name: wait until the app is running
+  wait_for:
+    port: 8081
+    timeout: 60
+
+- name: readiness probe for service
+  uri:
+    url: http://localhost:8081/ping
+    method: GET
+    status_code: 200
+

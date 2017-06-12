@@ -11,7 +11,15 @@ And configure the system so we can test changes
 
 ## provision environment on the cloud
 
+### Infrastructure with Terraform
+
 eneko@eneko-XPS-15-9550:~/opencredo/projects/eneko/terraform-ansible-example/infrastructure$ terraform apply -var 'access_key={acces-key}' -var 'secret_key='
+
+### Provisioning instance with Ansible
+
+Ansible 2.3.0 
+eneko@eneko-XPS-15-9550:~/opencredo/projects/eneko/terraform-ansible-example/provisioning/ansible$ ansible-playbook -vvvv -i inventories/hosts ./services-playbook.yml 
+
 
 ## deploy microservices
 

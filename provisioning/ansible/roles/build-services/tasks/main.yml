@@ -1,0 +1,18 @@
+- name: clone services repo
+  git:
+    dest: ~/infra-problem
+
+- name: testing that we are in an stable build
+  command: make test
+  args:
+    chdir: ~/infra-problem
+
+- name: build common libraries
+  command: make libs
+  args:
+    chdir: ~/infra-problem
+
+- name: build services
+  command: make clean all
+  args:
+    chdir: ~/infra-problem

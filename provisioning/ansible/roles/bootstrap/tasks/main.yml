@@ -1,0 +1,17 @@
+- name: install git
+  become: true
+  package:
+    name: git
+    state: latest
+
+- name: install java
+  yum: name=java-1.8.0-openjdk state=present
+  become: true
+
+- name: download lein
+  get_url: url=https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein dest=/usr/bin/lein  mode="u+x,o+x"
+  become: true
+
+- name: execute lein
+  command: /usr/bin/lein
+
