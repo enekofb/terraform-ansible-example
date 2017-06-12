@@ -1,9 +1,8 @@
 - name: Ansible provisioner
   hosts: all
   roles:
-#  - williamyeh.oracle-java
-  - bootstrap
-  - build-services
+#  - bootstrap
+#  - build-services
   - frontend
   - newsfeed
   - quotes

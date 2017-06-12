@@ -1,7 +1,9 @@
-- name: testing that we are in an stable build
-  shell: nohup `APP_PORT=8081 java -jar newsfeed.jar` >/dev/null &
+- name: start newsfeed
+  shell: nohup java -jar newsfeed.jar >/dev/null &
   args:
     chdir: ~/infra-problem/build
+  environment:
+    APP_PORT: '8081'
 
 - name: wait until the app is running
   wait_for:

@@ -1,7 +1,9 @@
-- name: testing that we are in an stable build
-  shell: nohup `APP_PORT=8082 java -jar quotes.jar` >/dev/null &
+- name: start quotes
+  shell: nohup java -jar quotes.jar >/dev/null &
   args:
     chdir: ~/infra-problem/build
+  environment:
+    APP_PORT: '8082'
 
 - name: wait until the app is running
   wait_for:
@@ -13,4 +15,3 @@
     url: http://localhost:8082/ping
     method: GET
     status_code: 200
-
