@@ -87,18 +87,13 @@ for the playbook at `terraform-ansible-example/provisioning/ansible/services-pla
 ```
         
 
-Acceptance criteria:
+## Notes on ‘future work’
 
-- We want to clone the repo, set an API key and
-run the code, to have a working environment
+### In future, we need to extend these scripts via the CI server to build a deployment pipeline
 
-- Should include good documentation so we can
-run script from one of our dev laptops
+This solution integrates without problems with deployment pipelines so has two independent steps (provisioning infrastructure and provisioning services).
 
-Notes on ‘future work’
-
-- In future, we need to extend these scripts via
-the CI server to build a deployment pipeline
-
-- We need to add environments and extend and
-harden into a production system later on
+###  We need to add environments and extend and harden into a production system later on
+- Do we want to use different environments in Terraform --> use different vars files with the configuration related to the environment
+and keep the state files per environment
+- Do we want to provision different environments with Ansible --> use different dynamic inventories (ini files) per staging 
