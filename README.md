@@ -1,6 +1,8 @@
-
 # Cloud environment provision
 
+- Based on the following story we are going to provision an AWS ec2 instances using Terraform and Ansible 
+
+```
 As a developer on the project,
 So that I can test the system,
 And get on with adding features,
@@ -8,23 +10,44 @@ I need some infrastructure code to provision an
 environment on the cloud,
 And deploy the microservices,
 And configure the system so we can test changes
+```
+
+## Requirements
+
+1. AWS cli installed and configured: http://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html
+
+```
+cat ~/.aws/config 
+[default]
+region = eu-west-1
+output = json
+
+cat ~/.aws/credentials 
+
+[default]
+aws_secret_access_key = xxxx
+aws_access_key_id = xxxxx
+eneko@eneko-XPS-15-9550:~/opencredo/projects/eneko/terraform-ansible-example/infrastructure$ 
+
+```
+
+2. Install terraform in your machine https://www.terraform.io/intro/getting-started/install.html
+3. Install ansible 2.3.0 in your machine by using http://docs.ansible.com/ansible/intro.html and ansible-vault to manage secrets
+   Install ansible-vault with `pip install ansible-vault`
+
 
 ## Infrastructure provisioning with Terraform in AWS
 
 Instructions to follow in order to provision an ec2 instance where to deploy the services.
 
-1. Install terraform in your machine https://www.terraform.io/intro/getting-started/install.html
-2. Create key_pair
-3. From the following directory _terraform-ansible-example/infrastructure_ execute terraform commands.
-4. Execute terraform command plan to verify that terraform is setup properly and aws environment is well configured.
+1. From the following directory _terraform-ansible-example/infrastructure_ execute terraform commands.
+2. Execute terraform command plan to verify that terraform is setup properly and aws environment is well configured.
 ```
-terraform plan -var 'access_key={acces-key}' -var 'secret_key={secret-key} -var 'public_key={public-key}'
+terraform plan -var 'public_key={public-key}'
 ```
 
 Variables:
  
-- access_key: aws access key.
-- secret_key: aws secret key.
 - public_key: public key name to authorize ssh in the provisioned instance.
 
 In order to provision the infrastructure:
@@ -32,7 +55,7 @@ In order to provision the infrastructure:
 - Execute terraform apply to provision an ec2 intance by terraform
 
 ```
-terraform plan -var 'access_key={acces-key}' -var 'secret_key={secret-key}' -var 'public_key={public-key}'
+terraform plan -var 'public_key={public-key}'
 ```
 At this point we have an ec2 instance provisioned and ready for provisioning the services 
 
@@ -40,14 +63,28 @@ At this point we have an ec2 instance provisioned and ready for provisioning the
 
 In order to bootstrap the ec2 instance and provision the services we follow the next steps: 
 
-- Install ansible 2.3.0 in your machine by using http://docs.ansible.com/ansible/intro.html
-- Install ansible-vault with `pip install ansible-vault`
-- Modify file hosts at _terraform-ansible-example/provisioning/ansible/inventories/hosts_ with your ec2 instance details.
-- Run ansible script provisioning/ansible folder `ansible-playbook -vvvv --ask-vault-pass -i inventories/hosts ./services-playbook.yml` 
+- Do not need to specify your inventory so its using ansible aws dynamic inventory (using aws default config).
+- Run ansible script provisioning/ansible folder ` ansible-playbook -vvvv --ask-vault-pass -u centos -i inventories/external ./services-playbook.yml` 
 
 **Notice that you need vault pass to run the playbook -- sending it over by keybase or similar**
 
 ## configure the system
+
+- If you want to change any of the environment variables you just need to modify it the section vars
+for the playbook at `terraform-ansible-example/provisioning/ansible/services-playbook.yml`
+
+```
+  vars:
+  - frontend_app_port: 8080
+  - newsfeed_app_port: 8081
+  - quotes_app_port: 8082
+  - static_content_port: '8000'
+  - static_content_url: 'http://localhost:{{static_content_port}}'
+  - frontend_service_url: 'http://localhost:{{frontend_app_port}}'
+  - newsfeed_service_url: 'http://localhost:{{newsfeed_app_port}}'
+  - quotes_service_url: 'http://localhost:{{quotes_app_port}}'
+
+```
         
 
 Acceptance criteria:

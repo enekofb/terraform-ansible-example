@@ -1,3 +1,15 @@
+- name: install ius
+  yum: name=https://centos7.iuscommunity.org/ius-release.rpm state=present
+  become: true
+
+- name: install python3
+  yum: name=python36u state=present
+  become: true
+
+- name: install python3
+  command: ln -sf /usr/bin/python3.6 /usr/bin/python3
+  become: true
+
 - name: install git
   become: true
   package:

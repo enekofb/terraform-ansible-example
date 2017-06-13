@@ -2,7 +2,7 @@
   hosts: all
   roles:
   - bootstrap
-#  - build-services
+  - build-services
   - frontend
   - newsfeed
   - quotes
@@ -10,7 +10,8 @@
   - frontend_app_port: 8080
   - newsfeed_app_port: 8081
   - quotes_app_port: 8082
-  - static_url: 'http://localhost:8000'
+  - static_content_port: '8000'
+  - static_content_url: 'http://localhost:{{static_content_port}}'
   - frontend_service_url: 'http://localhost:{{frontend_app_port}}'
   - newsfeed_service_url: 'http://localhost:{{newsfeed_app_port}}'
   - quotes_service_url: 'http://localhost:{{quotes_app_port}}'
