@@ -94,7 +94,7 @@ resource "aws_instance" "eneko-ec2" {
     "${aws_security_group.eneko.id}"]
   ami = "ami-7abd0209"
   instance_type = "t2.micro"
-  key_name = "eneko-dell"
+  key_name = "${var.key_name}"
 
   tags = {
     Name = "eneko.private"

@@ -23,7 +23,7 @@
     STATIC_URL: 'http://localhost:8000'
     NEWSFEED_SERVICE_URL: 'http://localhost:8081'
     QUOTE_SERVICE_URL: 'http://localhost:8082'
-    NEWSFEED_SERVICE_TOKEN: 'T1&eWbYXNWG1w1^YGKDPxAWJ@^et^&kX'
+    NEWSFEED_SERVICE_TOKEN: '{{newsfeed_service_token}}'
 
 - name: wait until the app is running
   wait_for:
