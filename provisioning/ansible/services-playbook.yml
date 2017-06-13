@@ -2,7 +2,7 @@
   hosts: all
   roles:
   - bootstrap
-#  - build-services
-#  - frontend
-#  - newsfeed
-#  - quotes
+  - build-services
+  - frontend
+  - newsfeed
+  - quotes
