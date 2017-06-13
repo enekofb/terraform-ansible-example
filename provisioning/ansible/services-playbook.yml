@@ -1,8 +1,8 @@
 - name: Ansible provisioner
   hosts: all
   roles:
-#  - bootstrap
+  - bootstrap
 #  - build-services
-  - frontend
-  - newsfeed
-  - quotes
+#  - frontend
+#  - newsfeed
+#  - quotes
