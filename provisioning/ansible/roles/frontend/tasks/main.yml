@@ -1,38 +1,38 @@
-- name: start static content
-  shell: nohup ./serve >/dev/null &
-  args:
-    chdir: ~/infra-problem/front-end/public
-
-- name: wait until the app is running
-  wait_for:
-    port: 8000
-    timeout: 60
-
-- name: readiness probe for service
-  uri:
-    url: http://localhost:8000
-    method: GET
-    status_code: 200
+#- name: start static content
+#  shell: nohup ./serve >/dev/null &
+#  args:
+#    chdir: ~/infra-problem/front-end/public
+#
+#- name: wait until the app is running
+#  wait_for:
+#    port: 8000
+#    timeout: 60
+#
+#- name: readiness probe for service
+#  uri:
+#    url: http://localhost:8000
+#    method: GET
+#    status_code: 200
 
 - name: start frontend
   shell: nohup java -jar front-end.jar >/dev/null &
   args:
     chdir: ~/infra-problem/build
   environment:
-    APP_PORT: '8080'
-    STATIC_URL: 'http://localhost:8000'
-    NEWSFEED_SERVICE_URL: 'http://localhost:8081'
-    QUOTE_SERVICE_URL: 'http://localhost:8082'
+    APP_PORT: '{{frontend_app_port}}'
+    STATIC_URL: '{{static_url}}'
+    NEWSFEED_SERVICE_URL: '{{newsfeed_service_url}}'
+    QUOTE_SERVICE_URL: '{{quotes_service_url}}'
     NEWSFEED_SERVICE_TOKEN: '{{newsfeed_service_token}}'
 
 - name: wait until the app is running
   wait_for:
-    port: 8080
+    port: '{{frontend_app_port}}'
     timeout: 60
 
 - name: readiness probe for service
   uri:
-    url: http://localhost:8080/ping
+    url: '{{frontend_service_url}}/ping'
     method: GET
     status_code: 200
 

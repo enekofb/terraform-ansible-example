@@ -3,16 +3,16 @@
   args:
     chdir: ~/infra-problem/build
   environment:
-    APP_PORT: '8081'
+    APP_PORT: '{{newsfeed_app_port}}'
 
 - name: wait until the app is running
   wait_for:
-    port: 8081
+    port: '{{newsfeed_app_port}}'
     timeout: 60
 
 - name: readiness probe for service
   uri:
-    url: http://localhost:8081/ping
+    url: '{{newsfeed_service_url}}/ping'
     method: GET
     status_code: 200
 

@@ -5,6 +5,11 @@ provider "aws" {
   secret_key = "${var.secret_key}"
 }
 
+resource "aws_key_pair" "eneko" {
+  key_name   = "eneko-public"
+  public_key = "${var.public_key}"
+}
+
 ## Setting up VPC
 resource "aws_vpc" "eneko-vpc" {
   cidr_block = "10.20.0.0/16"
@@ -94,7 +99,7 @@ resource "aws_instance" "eneko-ec2" {
     "${aws_security_group.eneko.id}"]
   ami = "ami-7abd0209"
   instance_type = "t2.micro"
-  key_name = "${var.key_name}"
+  key_name = "eneko-public"
 
   tags = {
     Name = "eneko.private"

@@ -1,14 +1,12 @@
-- name: Set authorized key took from file
-  authorized_key:
-    user: centos
-    state: present
-    key: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDU2OTYuXKmZfwcZHcw4XCCyyey++oR6aayF/lGHo2F15CyqcXSPSAag3y1hqaCFqPM3pThu59W60hPcRsE3YrUVvoXPDi9DhApLhHg1sfTBRbU0Vlnxg7jWncRTKda1f8D0C4UnA/cKfl7r96MRbCmX7UgVSNCvWhVTxcgfdBUAIWvGKLOujDECi3h9eS2QmiutPkg1C/QxCPaJ3/3cGQ4ehYbyu3YlV5Z8Xrs9U3VBy4B8zW3g+dpddy766zpzOpEQcItMewvY9UBaxbQoU5PnTxkN5KQwo9NaJSU4hufNWtR2+BFPy2kkWG1xTF7jniHG7y3GmZHT8kCna/9srMaPiPluRqWm08qjlgZrPOm3hGN4t9fROU2dlArVEiUVvBNEkeqdQegpjDXXiRRXy2SdVThX7wVrdVkiXfrWpsgcOpHRAjXbRYpFhH65m2hTtb0PAGWwUMv8/qi7QoX/XzliCU2QRt4vg/fXrhupRe0BRgu0er42gKblkaFAIPTnHiSRulLgobq+DfvvC5HtEW98cyL6doOOifFB4blunnxrbEVPV6jEirPxfGqZi8/lNKZ829/TzqNv8haOY7By1ZSQdH/n6tCDaCh3DsuEppd25v3Fzo+a27tyDOKFqoYCdi+F3nxtmIrQEHK3SZNjpVj5a4AIrywLnjHi738dZ/12w== eneko.fernandez@opencredo.com"
-
 - name: install git
   become: true
   package:
     name: git
     state: latest
+
+- name: install psmisc
+  yum: name=psmisc state=present
+  become: true
 
 - name: install java
   yum: name=java-1.8.0-openjdk state=present
@@ -21,3 +19,7 @@
 - name: execute lein
   command: /usr/bin/lein
 
+#TODO: risky code, refactor
+- name: cleanup existing java processes
+  command: killall java
+  ignore_errors: true

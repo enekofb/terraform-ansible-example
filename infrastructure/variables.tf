@@ -23,7 +23,7 @@ variable "private_subnet_cidr_block"{
 
 variable "access_key" {}
 variable "secret_key" {}
-variable "key_name" {}
+variable "public_key" {}
 
 variable "region" {
   default = "eu-west-1"
