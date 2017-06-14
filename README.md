@@ -27,7 +27,6 @@ cat ~/.aws/credentials
 [default]
 aws_secret_access_key = xxxx
 aws_access_key_id = xxxxx
-eneko@eneko-XPS-15-9550:~/opencredo/projects/eneko/terraform-ansible-example/infrastructure$ 
 
 ```
 
