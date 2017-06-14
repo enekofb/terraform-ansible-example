@@ -1,1 +1,5 @@
 # Created by .ignore support plugin (hsz.mobi)
+.idea/
+provisioning/ansible/services-playbook.retry
+provisioning/ansible/vault_pass.txt
+terraform-ansible-example.iml

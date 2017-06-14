@@ -1,1 +1,1 @@
-34.249.251.20     ansible_connection=ssh        ansible_user=centos
+34.251.102.118    ansible_connection=ssh        ansible_user=centos

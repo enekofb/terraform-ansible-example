@@ -32,7 +32,7 @@ aws_access_key_id = xxxxx
 
 2. Install terraform in your machine https://www.terraform.io/intro/getting-started/install.html
 3. Install ansible 2.3.0 in your machine by using http://docs.ansible.com/ansible/intro.html and ansible-vault to manage secrets
-   Install ansible-vault with `pip install ansible-vault`
+   Install ansible-vault and boto with `pip install ansible-vault boto`  
 
 
 ## Infrastructure provisioning with Terraform in AWS

@@ -1,6 +1,6 @@
 - name: clone services repo
   git:
-    repo: https://github.com/ThoughtWorksInc/infra-problem.git
+    repo: https://github.com/enekofb/infra-problem.git
     dest: ~/infra-problem
 
 - name: build common libraries
